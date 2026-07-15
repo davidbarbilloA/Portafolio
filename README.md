@@ -1,74 +1,120 @@
-# David Barbillo — Portafolio
+# Portafolio – Sitio personal de David Barbillo
 
-Portafolio profesional construido con Next.js 14 (App Router), TypeScript, TailwindCSS y Framer Motion.
+Portafolio profesional construido con **Next.js 14 (App Router)**, orientado a mostrar experiencia, proyectos y skills con una identidad visual propia (paleta oscura, tipografía mixta humanista/técnica y animaciones con Framer Motion).
 
-## Stack
+## Tech stack
 
-- **Next.js 14** (App Router, Server + Client Components)
-- **TypeScript** en modo estricto
-- **TailwindCSS** con tokens de diseño personalizados (ver `tailwind.config.ts`)
-- **Framer Motion** para animaciones (stagger, reveal on scroll, layout transitions)
-- **Lucide React** para iconografía
-- **Geist Sans** (paquete oficial `geist`) + **Inter** + **JetBrains Mono**
+| Capa | Tecnologías |
+|------|-------------|
+| **Framework** | Next.js 14 (App Router, Server + Client Components) |
+| **Lenguaje** | TypeScript (modo estricto) |
+| **Estilos** | TailwindCSS + tokens de diseño personalizados (`tailwind.config.ts`) |
+| **Animaciones** | Framer Motion (stagger, reveal on scroll, layout transitions) |
+| **Iconografía** | Lucide React |
+| **Tipografía** | Geist Sans, Inter, JetBrains Mono |
 
-## Cómo correrlo
+## Estructura del proyecto
 
-```bash
-npm install
-npm run dev
+```text
+Portafolio/
+├── app/                    # Rutas de Next.js (layout, page, robots, sitemap, globals.css)
+├── components/
+│   ├── layout/             # Navbar, footer, cursor, loading screen, scroll progress, back-to-top
+│   ├── sections/           # Secciones del portafolio (Hero, About, Skills, Experience...)
+│   └── ui/                 # Primitivos reutilizables (Button, Badge, Card, SectionHeading, RevealOnScroll)
+├── hooks/                  # Lógica reutilizable (scroll progress, sección activa, posición del mouse)
+├── lib/                    # Utilidades (cn para clases de Tailwind)
+├── constants/              # Contenido del sitio, separado de la presentación
+├── types/                  # Contratos de datos compartidos
+├── public/                 # Assets estáticos (foto, CV, imagen OG, capturas de proyectos)
+└── README.md
 ```
 
-Abre [http://localhost:3000](http://localhost:3000).
+> Separar contenido (`/constants`) de presentación (`/components`) permite actualizar experiencia, certificaciones o proyectos sin tocar JSX.
 
-## Estructura
+## Funcionalidades
 
-```
-/app                 → rutas de Next.js (layout, page, robots, sitemap, globals.css)
-/components/layout   → navbar, footer, cursor, loading screen, scroll progress, back-to-top
-/components/sections → cada sección del portafolio (Hero, About, Skills, Experience...)
-/components/ui       → primitivos reutilizables (Button, Badge, Card, SectionHeading, RevealOnScroll)
-/hooks               → lógica reutilizable (scroll progress, sección activa, posición del mouse)
-/lib                 → utilidades (cn para clases de Tailwind)
-/constants           → todo el contenido del sitio, separado del componente que lo renderiza
-/types               → contratos de datos compartidos
-/public              → assets estáticos (foto, CV, imagen OG, capturas de proyectos)
-```
-
-Separar contenido (`/constants`) de presentación (`/components`) significa que puedes actualizar tu
-experiencia, certificaciones o proyectos sin tocar una sola línea de JSX.
-
-## Qué personalizar antes de publicar
-
-1. **`constants/site.ts`** — nombre, correo, enlaces de GitHub/LinkedIn, URL del CV.
-2. **`constants/projects.ts`** — está vacío a propósito. Agrega tus proyectos siguiendo la forma indicada
-   en el comentario del archivo; la sección ya tiene el grid y el estado vacío listos.
-3. **`constants/experience.ts`** — agrega roles anteriores o futuros con la misma estructura.
-4. **`/public/profile.jpg`** — reemplaza el placeholder del Hero.
-5. **`/public/resume.pdf`** — y actualiza `SITE.resumeUrl`.
-6. **`/public/og-image.png`** — imagen para compartir en redes (1200×630).
+- Diseño **responsive** de una sola página (Hero, About, Skills, Experience, Projects, Contact)
+- **Animaciones** de entrada (stagger), scroll-reveal y micro-interacciones con Framer Motion
+- **Nav pill animada** que resalta la sección activa según scroll
+- **Cursor personalizado**, loading screen y barra de progreso de scroll
+- Botón *back-to-top*
+- Contenido desacoplado del componente (`/constants`) para edición rápida
+- SEO básico vía `app/robots` y `app/sitemap`
+- Descarga de **CV** e imagen **OG** para compartir en redes
 
 ## Identidad visual (resumen)
 
-- **Paleta:** negro casi puro (`#0A0A0B`) con superficies grises escalonadas (`#131316`, `#18181C`) y un
-  único acento azul eléctrico (`#2E7DFF`), usado con disciplina.
-- **Tipografía:** Geist Sans para títulos, Inter para cuerpo de texto, JetBrains Mono para metadatos
-  (fechas, tags de tecnología, labels) — un guiño deliberado a tu perfil de sistemas/infraestructura,
-  donde lo monoespaciado se asocia a terminal y logs.
-- **Elemento de firma:** el tratamiento mono para todo dato "de sistema" (fechas, stacks, estados,
-  porcentajes de skill) crea un hilo conductor visual entre tu lado de producto (tipografía humanista) y
-  tu lado de infraestructura (tipografía técnica), sin caer en un tema "hacker" literal.
-- **Motion:** stagger en el Hero, scroll-reveal consistente vía `RevealOnScroll`, pill animada en la nav
-  activa, y micro-interacciones de hover — todo con la curva `cubic-bezier(0.16, 1, 0.3, 1)` para que se
-  sienta uniforme en todo el sitio.
+| Elemento | Detalle |
+|----------|---------|
+| **Paleta** | Negro casi puro (`#0A0A0B`) + superficies grises escalonadas (`#131316`, `#18181C`) + acento azul eléctrico (`#2E7DFF`) |
+| **Tipografía** | Geist Sans (títulos), Inter (cuerpo), JetBrains Mono (metadatos: fechas, stacks, estados) |
+| **Motion** | Curva `cubic-bezier(0.16, 1, 0.3, 1)` en todas las transiciones para sensación uniforme |
+| **Elemento de firma** | Tratamiento mono para todo dato "de sistema", como puente visual entre el lado producto (tipografía humanista) y el lado infraestructura (tipografía técnica) |
+
+## Instalación y ejecución
+
+### 1. Clonar el repositorio
+
+```bash
+git clone https://github.com/davidbarbilloA/Portafolio.git
+cd Portafolio
+```
+
+### 2. Instalar dependencias
+
+**Requisitos:** Node.js 18+
+
+```bash
+npm install
+```
+
+### 3. Ejecutar en desarrollo
+
+```bash
+npm run dev
+```
+
+App disponible en: `http://localhost:3000`
+
+## Scripts disponibles
+
+| Script | Descripción |
+|--------|-------------|
+| `npm run dev` | Levanta el servidor de desarrollo (Next.js) |
+| `npm run build` | Genera el build de producción |
+| `npm run start` | Sirve el build de producción |
+| `npm run lint` | Corre ESLint sobre el proyecto |
+
+## Qué personalizar antes de publicar
+
+| Archivo | Qué contiene |
+|---------|--------------|
+| `constants/site.ts` | Nombre, correo, enlaces de GitHub/LinkedIn, URL del CV |
+| `constants/projects.ts` | Proyectos a mostrar (vacío por defecto, con estructura de ejemplo en comentarios) |
+| `constants/experience.ts` | Experiencia laboral / roles anteriores y futuros |
+| `public/profile.jpg` | Foto del Hero (reemplaza el placeholder) |
+| `public/resume.pdf` | CV descargable (actualizar `SITE.resumeUrl`) |
+| `public/og-image.png` | Imagen para compartir en redes (1200×630) |
 
 ## Fuente Satoshi (opcional)
 
-El brief original mencionaba Satoshi. No está incluida por defecto porque no está en Google Fonts y
-requiere licencia/CDN de Fontshare. Si quieres agregarla:
+El brief original contemplaba la tipografía Satoshi, no incluida por defecto por no estar en Google Fonts (requiere licencia/CDN de Fontshare). Para agregarla:
 
 ```ts
 // app/layout.tsx
 // <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" />
 ```
 
-y referenciarla como `font-display` en lugar de Geist.
+Y referenciarla como `font-display` en lugar de Geist.
+
+## Build de producción
+
+```bash
+npm run build
+npm run start
+```
+
+## Autor
+
+- [@davidbarbilloA](https://github.com/davidbarbilloA)
