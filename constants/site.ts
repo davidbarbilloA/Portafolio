@@ -7,11 +7,11 @@ export const SITE = {
   description:
     "Software Engineer enfocado en React y Next.js, en transición hacia Full Stack con Java y Spring Boot. Diseño y construyo productos web con estándares de producción — arquitectura limpia, rendimiento y accesibilidad — y aporto un criterio poco común en perfiles junior: experiencia real administrando infraestructura, gobernanza de accesos y sistemas críticos en un entorno corporativo.",
   location: "Medellín, Colombia",
-  email: "contacto@davidbarbillo.dev",
-  github: "https://github.com/",
-  linkedin: "https://linkedin.com/in/",
+  email: "davidbarbillo120@gmail.com",
+  github: "https://github.com/davidbarbilloA",
+  linkedin: "https://www.linkedin.com/in/david-barbillo/",
   portfolioUrl: "https://davidbarbillo.dev",
-  resumeUrl: "#", // TODO: agregar enlace al CV en /public
+  resumeUrl: "/projects/pdf/Hoja de vida David Barbillo.pdf", // TODO: agregar enlace al CV en /public
   availableForWork: true,
   quickFacts: [
     { label: "Experiencia", value: "+2 años" },

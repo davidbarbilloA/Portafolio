@@ -47,77 +47,92 @@ export function Projects() {
           </div>
         ) : (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {PROJECTS.map((project, i) => (
-              <RevealOnScroll key={project.title} delay={i * 0.08}>
-                <div className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-base-surface/40 transition-all duration-500 hover:-translate-y-1 hover:border-border-strong hover:bg-base-surface/70">
-                  <div className="relative aspect-video w-full overflow-hidden bg-base-surface2">
-                    {project.image ? (
-                      <Image
-                        src={project.image}
-                        alt={project.title}
-                        fill
-                        className="object-cover transition-transform duration-700 ease-premium group-hover:scale-105"
-                      />
-                    ) : (
-                      <div className="flex h-full items-center justify-center font-mono text-xs uppercase tracking-widest text-ink-tertiary">
-                        Vista previa
+            {PROJECTS.map((project, i) => {
+              const targetUrl = project.demoUrl || project.githubUrl;
+              return (
+                <RevealOnScroll key={project.title} delay={i * 0.08}>
+                  <div className="relative group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-base-surface/40 transition-all duration-500 hover:-translate-y-1 hover:border-border-strong hover:bg-base-surface/70">
+                    <div className="relative aspect-video w-full overflow-hidden bg-base-surface2">
+                      {project.image ? (
+                        <Image
+                          src={project.image}
+                          alt={project.title}
+                          fill
+                          className="object-cover transition-transform duration-700 ease-premium group-hover:scale-105"
+                        />
+                      ) : (
+                        <div className="flex h-full items-center justify-center font-mono text-xs uppercase tracking-widest text-ink-tertiary">
+                          Vista previa
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="flex flex-1 flex-col p-6">
+                      <div className="flex items-center justify-between gap-2">
+                        <Badge variant="outline">{project.category}</Badge>
+                        <span
+                          className={`font-mono text-[11px] uppercase tracking-wider ${
+                            statusColor[project.status]
+                          }`}
+                        >
+                          {project.status}
+                        </span>
                       </div>
-                    )}
+
+                      <h3 className="mt-4 font-display text-lg font-medium text-ink-primary">
+                        {targetUrl ? (
+                          <a
+                            href={targetUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="focus:outline-none"
+                          >
+                            <span className="absolute inset-0" aria-hidden="true" />
+                            {project.title}
+                          </a>
+                        ) : (
+                          project.title
+                        )}
+                      </h3>
+                      <p className="mt-2 flex-1 text-sm leading-relaxed text-ink-secondary">
+                        {project.description}
+                      </p>
+
+                      <div className="mt-4 flex flex-wrap gap-2">
+                        {project.stack.map((tech) => (
+                          <Badge key={tech}>{tech}</Badge>
+                        ))}
+                      </div>
+
+                      <div className="mt-6 flex gap-3 border-t border-border pt-5 relative z-10">
+                        {project.githubUrl && (
+                          <a
+                            href={project.githubUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-1.5 text-sm text-ink-secondary transition-colors hover:text-ink-primary"
+                          >
+                            <Github className="h-4 w-4" />
+                            Código
+                          </a>
+                        )}
+                        {project.demoUrl && (
+                          <a
+                            href={project.demoUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-1.5 text-sm text-ink-secondary transition-colors hover:text-ink-primary"
+                          >
+                            <ExternalLink className="h-4 w-4" />
+                            Demo
+                          </a>
+                        )}
+                      </div>
+                    </div>
                   </div>
-
-                  <div className="flex flex-1 flex-col p-6">
-                    <div className="flex items-center justify-between gap-2">
-                      <Badge variant="outline">{project.category}</Badge>
-                      <span
-                        className={`font-mono text-[11px] uppercase tracking-wider ${
-                          statusColor[project.status]
-                        }`}
-                      >
-                        {project.status}
-                      </span>
-                    </div>
-
-                    <h3 className="mt-4 font-display text-lg font-medium text-ink-primary">
-                      {project.title}
-                    </h3>
-                    <p className="mt-2 flex-1 text-sm leading-relaxed text-ink-secondary">
-                      {project.description}
-                    </p>
-
-                    <div className="mt-4 flex flex-wrap gap-2">
-                      {project.stack.map((tech) => (
-                        <Badge key={tech}>{tech}</Badge>
-                      ))}
-                    </div>
-
-                    <div className="mt-6 flex gap-3 border-t border-border pt-5">
-                      {project.githubUrl && (
-                        <a
-                          href={project.githubUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-1.5 text-sm text-ink-secondary transition-colors hover:text-ink-primary"
-                        >
-                          <Github className="h-4 w-4" />
-                          Código
-                        </a>
-                      )}
-                      {project.demoUrl && (
-                        <a
-                          href={project.demoUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-1.5 text-sm text-ink-secondary transition-colors hover:text-ink-primary"
-                        >
-                          <ExternalLink className="h-4 w-4" />
-                          Demo
-                        </a>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </RevealOnScroll>
-            ))}
+                </RevealOnScroll>
+              );
+            })}
           </div>
         )}
       </div>

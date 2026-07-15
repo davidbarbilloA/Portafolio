@@ -2,22 +2,34 @@ import { TimelineEntry } from "@/types";
 
 export const TIMELINE: TimelineEntry[] = [
   {
-    year: "Inicio",
-    title: "Inicio del Tecnólogo en Desarrollo de Software",
+    year: "2022",
+    title: "Inicio de tecnica en Mantenimiento de Equipos y Manejo de Redes",
     description:
       "Primeros fundamentos en lógica de programación, estructuras de datos y desarrollo web.",
   },
   {
-    year: "Ingreso laboral",
-    title: "Primer rol técnico en Julius2grow",
+    year: "2023",
+    title: "Primer rol Aprendiz en Julius2grow",
     description:
-      "Entrada al mundo profesional combinando desarrollo frontend con administración de sistemas internos — la base de mi perfil híbrido actual.",
+      "Aprendizaje de administración de sistemas internos, soporte técnico, gestión de licencias, inventario de equipos, redes UniFi, matriz de riesgos, manejo de VPN, mantenimiento preventivo y correctivo.",
   },
   {
-    year: "Expansión",
-    title: "Beca de desarrollo Full Stack",
+    year: "2023",
+    title: "Inicio de Ingeniería de Sistemas",
     description:
-      "Profundización en React con TypeScript y comienzo del camino hacia Java y Spring Boot, con proyectos integradores end-to-end.",
+      "Inicio de estudios superiores, con fundamentos en lógica de programación, estructuras de datos, bases de datos, arquitectura de software y desarrollo de software.",
+  },
+  {
+    year: "2024",
+    title: "Interrupción de Ingeniería de Sistemas",
+    description:
+      "Interrupción de estudios superiores por motivos personales.",
+  },
+  {
+    year: "2025",
+    title: "Beca de Desarrollo de Software",
+    description:
+      "Ampliación de conocimientos en desarrollo de software, con énfasis en React con TypeScript y comienzo del camino hacia Java y Spring Boot, con proyectos integradores end-to-end.",
   },
   {
     year: "En curso",

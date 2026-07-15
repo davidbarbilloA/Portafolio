@@ -1,6 +1,6 @@
 "use client";
 
-import { Award, Clock, ListChecks } from "lucide-react";
+import { Award, Clock, ListChecks, ArrowUpRight } from "lucide-react";
 import { CERTIFICATIONS } from "@/constants/certifications";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
@@ -30,17 +30,35 @@ export function Certifications() {
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {CERTIFICATIONS.map((cert, i) => {
             const Icon = statusIcon[cert.status];
+            const hasUrl = !!cert.url;
             return (
               <RevealOnScroll key={cert.name} delay={i * 0.08}>
-                <div className="flex h-full flex-col rounded-2xl border border-border bg-base-surface/40 p-6 transition-colors duration-500 hover:border-border-strong hover:bg-base-surface/70">
-                  <span
-                    className={`inline-flex w-fit items-center gap-1.5 rounded-full border px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider ${statusStyle[cert.status]}`}
-                  >
-                    <Icon className="h-3 w-3" />
-                    {cert.status}
-                  </span>
+                <div className={`relative group flex h-full flex-col rounded-2xl border border-border bg-base-surface/40 p-6 transition-all duration-500 hover:border-border-strong hover:bg-base-surface/70 ${hasUrl ? "hover:-translate-y-1" : ""}`}>
+                  <div className="flex items-center justify-between gap-2">
+                    <span
+                      className={`inline-flex w-fit items-center gap-1.5 rounded-full border px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider ${statusStyle[cert.status]}`}
+                    >
+                      <Icon className="h-3 w-3" />
+                      {cert.status}
+                    </span>
+                    {hasUrl && (
+                      <ArrowUpRight className="h-4 w-4 text-ink-tertiary transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-accent" />
+                    )}
+                  </div>
                   <h3 className="mt-4 flex-1 font-display text-sm font-medium leading-snug text-ink-primary">
-                    {cert.name}
+                    {hasUrl ? (
+                      <a
+                        href={cert.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="focus:outline-none"
+                      >
+                        <span className="absolute inset-0" aria-hidden="true" />
+                        {cert.name}
+                      </a>
+                    ) : (
+                      cert.name
+                    )}
                   </h3>
                   <p className="mt-2 text-xs text-ink-tertiary">{cert.issuer}</p>
                 </div>
