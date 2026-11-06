@@ -26,7 +26,7 @@ Portafolio/
 ├── lib/                    # Utilidades (cn para clases de Tailwind)
 ├── constants/              # Contenido del sitio, separado de la presentación
 ├── types/                  # Contratos de datos compartidos
-├── public/                 # Assets estáticos (foto, CV, imagen OG, capturas de proyectos)
+├── public/                 # Assets estáticos (CV y capturas de proyectos)
 └── README.md
 ```
 
@@ -34,14 +34,14 @@ Portafolio/
 
 ## Funcionalidades
 
-- Diseño **responsive** de una sola página (Hero, About, Skills, Experience, Projects, Contact)
+- Diseño **responsive** de una sola página (Hero, About, Skills, Experience, Projects, Timeline, Certifications, Education, Services, Contact)
 - **Animaciones** de entrada (stagger), scroll-reveal y micro-interacciones con Framer Motion
 - **Nav pill animada** que resalta la sección activa según scroll
 - **Cursor personalizado**, loading screen y barra de progreso de scroll
 - Botón *back-to-top*
 - Contenido desacoplado del componente (`/constants`) para edición rápida
 - SEO básico vía `app/robots` y `app/sitemap`
-- Descarga de **CV** e imagen **OG** para compartir en redes
+- Descarga de **CV** desde el Hero y metadatos **Open Graph** para compartir en redes
 
 ## Identidad visual (resumen)
 
@@ -91,11 +91,12 @@ App disponible en: `http://localhost:3000`
 | Archivo | Qué contiene |
 |---------|--------------|
 | `constants/site.ts` | Nombre, correo, enlaces de GitHub/LinkedIn, URL del CV |
-| `constants/projects.ts` | Proyectos a mostrar (vacío por defecto, con estructura de ejemplo en comentarios) |
+| `constants/projects.ts` | Proyectos a mostrar (hoy: Tickets-App, Validación de URLs Maliciosas y FinanceOS) |
 | `constants/experience.ts` | Experiencia laboral / roles anteriores y futuros |
-| `public/profile.jpg` | Foto del Hero (reemplaza el placeholder) |
-| `public/resume.pdf` | CV descargable (actualizar `SITE.resumeUrl`) |
-| `public/og-image.png` | Imagen para compartir en redes (1200×630) |
+| `public/profile.jpg` | Foto del Hero (pendiente de agregar; hoy se muestra un placeholder) |
+| `public/projects/pdf/` | CV descargable (si cambias el archivo, actualiza `SITE.resumeUrl`) |
+| `public/og-image.png` | Imagen para compartir en redes, 1200×630 (pendiente de agregar; `app/layout.tsx` ya la referencia) |
+| `public/favicon.ico` | Ícono del sitio (pendiente de agregar; `app/layout.tsx` ya lo referencia) |
 
 ## Fuente Satoshi (opcional)
 
