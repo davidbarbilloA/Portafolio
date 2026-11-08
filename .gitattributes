@@ -1,0 +1,2 @@
+# Git no debe convertir saltos de línea en los PDF: algunos parecen texto y se dañarían.
+*.pdf binary
