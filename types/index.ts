@@ -1,15 +1,7 @@
-export type SkillCategory =
-  | "Frontend"
-  | "Backend"
-  | "Bases de datos"
-  | "Cloud"
-  | "Herramientas"
-  | "Administración TI";
-
-export interface Skill {
-  name: string;
-  category: SkillCategory;
-  level: number; // 1-100, used for the animated proficiency bar
+export interface SkillGroup {
+  title: string;
+  note?: string;
+  items: string[];
 }
 
 export interface ExperienceEntry {
@@ -18,18 +10,27 @@ export interface ExperienceEntry {
   period: string;
   location?: string;
   description: string;
-  highlights: string[];
-  stack: string[];
+  highlights?: string[];
+  stack?: string[];
   current?: boolean;
+}
+
+export interface ProjectImage {
+  src: string;
+  width: number;
+  height: number;
+  alt: string;
 }
 
 export interface ProjectEntry {
   title: string;
   description: string;
-  image?: string;
+  highlights: string[];
+  image?: ProjectImage;
   stack: string[];
   githubUrl?: string;
   demoUrl?: string;
+  demoLabel?: string;
   status: "En producción" | "En desarrollo" | "Archivado" | "Próximamente";
   category: string;
 }
@@ -38,26 +39,15 @@ export interface CertificationEntry {
   name: string;
   issuer: string;
   status: "Completada" | "En proceso" | "Planificada";
+  featured?: boolean;
   date?: string;
   url?: string;
 }
 
 export interface EducationEntry {
-  institution: string;
+  institution?: string;
   degree: string;
-  period: string;
-  status: "Completado" | "En curso";
+  period?: string;
+  status?: "Completado" | "En curso";
   description?: string;
-}
-
-export interface TimelineEntry {
-  year: string;
-  title: string;
-  description: string;
-}
-
-export interface ServiceEntry {
-  title: string;
-  description: string;
-  icon: string;
 }

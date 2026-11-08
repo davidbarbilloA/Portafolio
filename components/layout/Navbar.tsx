@@ -1,20 +1,22 @@
 "use client";
 
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Download, Menu, X } from "lucide-react";
 import { useState } from "react";
 import { NAV_LINKS } from "@/constants/nav";
 import { SITE } from "@/constants/site";
 import { useActiveSection } from "@/hooks/useActiveSection";
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/Button";
+import { buttonBase, buttonSizes, buttonVariants } from "@/components/ui/Button";
+
+const SECTION_IDS = NAV_LINKS.map((link) => link.href.replace("#", ""));
 
 export function Navbar() {
   const [hidden, setHidden] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const { scrollY } = useScroll();
-  const activeId = useActiveSection(NAV_LINKS.map((l) => l.href.replace("#", "")));
+  const activeId = useActiveSection(SECTION_IDS);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     const previous = scrollY.getPrevious() ?? 0;
@@ -27,131 +29,109 @@ export function Navbar() {
     }
   });
 
-  const handleNavClick = (href: string) => {
-    setMobileOpen(false);
-    const el = document.querySelector(href);
-    el?.scrollIntoView({ behavior: "smooth" });
-  };
-
   return (
     <motion.header
       animate={{ y: hidden ? "-100%" : "0%" }}
-      transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-      className="fixed inset-x-0 top-0 z-[60]"
+      transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+      className={cn(
+        "fixed inset-x-0 top-0 z-[60] border-b transition-colors duration-300",
+        scrolled || mobileOpen
+          ? "border-border bg-canvas/90 backdrop-blur-md"
+          : "border-transparent bg-transparent"
+      )}
     >
-      <div
-        className={cn(
-          "mx-auto mt-3 flex max-w-6xl items-center justify-between rounded-2xl border px-4 py-3 transition-all duration-500 md:mt-4 md:px-6",
-          scrolled
-            ? "border-border bg-base/80 shadow-card backdrop-blur-xl"
-            : "border-transparent bg-transparent"
-        )}
-      >
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3">
         <a
           href="#top"
-          onClick={(e) => {
-            e.preventDefault();
-            handleNavClick("#top");
-          }}
-          className="font-display text-sm font-semibold tracking-tight text-ink-primary"
+          onClick={() => setMobileOpen(false)}
+          className="flex min-h-11 items-center font-display text-xl text-ink-primary"
         >
           David Barbillo
-          <span className="ml-2 hidden font-mono text-[10px] font-normal uppercase tracking-widest text-ink-tertiary sm:inline">
-            / dev
-          </span>
         </a>
 
-        <nav className="hidden items-center gap-1 md:flex">
+        <nav aria-label="Principal" className="hidden items-center gap-7 md:flex">
           {NAV_LINKS.map((link) => {
             const isActive = activeId === link.href.replace("#", "");
             return (
               <a
                 key={link.href}
                 href={link.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleNavClick(link.href);
-                }}
+                aria-current={isActive ? "true" : undefined}
                 className={cn(
-                  "relative rounded-full px-4 py-2 text-sm transition-colors duration-300",
+                  "flex min-h-11 items-center border-b border-transparent text-sm transition-colors duration-200",
                   isActive
                     ? "text-ink-primary"
                     : "text-ink-secondary hover:text-ink-primary"
                 )}
               >
-                {isActive && (
-                  <motion.span
-                    layoutId="nav-pill"
-                    className="absolute inset-0 rounded-full bg-base-surface2"
-                    transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                  />
-                )}
-                <span className="relative">{link.label}</span>
+                {link.label}
               </a>
             );
           })}
         </nav>
 
-        <div className="hidden items-center gap-3 md:flex">
-          {SITE.availableForWork && (
-            <span className="flex items-center gap-2 rounded-full border border-border px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider text-ink-secondary">
-              <span className="relative flex h-1.5 w-1.5">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400/60" />
-                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
-              </span>
-              Disponible
-            </span>
+        <a
+          href={SITE.resumeUrl}
+          download
+          className={cn(
+            buttonBase,
+            buttonVariants.secondary,
+            buttonSizes.sm,
+            "hidden md:inline-flex"
           )}
-          <Button
-            size="sm"
-            variant="secondary"
-            onClick={() => handleNavClick("#contact")}
-          >
-            Contáctame
-          </Button>
-        </div>
+        >
+          <Download className="h-4 w-4" aria-hidden="true" />
+          Descargar CV
+        </a>
 
         <button
-          className="flex h-9 w-9 items-center justify-center rounded-full border border-border text-ink-primary md:hidden"
-          onClick={() => setMobileOpen((o) => !o)}
-          aria-label="Abrir menú"
+          type="button"
+          className="flex h-11 w-11 items-center justify-center rounded-lg border border-border text-ink-primary md:hidden"
+          onClick={() => setMobileOpen((open) => !open)}
+          aria-label={mobileOpen ? "Cerrar menú" : "Abrir menú"}
+          aria-expanded={mobileOpen}
+          aria-controls="mobile-menu"
         >
-          {mobileOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+          {mobileOpen ? (
+            <X className="h-4 w-4" aria-hidden="true" />
+          ) : (
+            <Menu className="h-4 w-4" aria-hidden="true" />
+          )}
         </button>
       </div>
 
       <AnimatePresence>
         {mobileOpen && (
-          <motion.div
+          <motion.nav
+            id="mobile-menu"
+            aria-label="Principal, móvil"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="mx-3 mt-2 overflow-hidden rounded-2xl border border-border bg-base/95 backdrop-blur-xl md:hidden"
+            transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            className="overflow-hidden border-t border-border md:hidden"
           >
-            <div className="flex flex-col gap-1 p-3">
+            <div className="flex flex-col gap-1 px-6 py-3">
               {NAV_LINKS.map((link) => (
                 <a
                   key={link.href}
                   href={link.href}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleNavClick(link.href);
-                  }}
-                  className="rounded-xl px-4 py-3 text-sm text-ink-secondary transition-colors hover:bg-base-surface2 hover:text-ink-primary"
+                  onClick={() => setMobileOpen(false)}
+                  className="flex min-h-11 items-center text-base text-ink-secondary transition-colors hover:text-ink-primary"
                 >
                   {link.label}
                 </a>
               ))}
-              <Button
-                size="sm"
-                className="mt-2"
-                onClick={() => handleNavClick("#contact")}
+              <a
+                href={SITE.resumeUrl}
+                download
+                className={cn(buttonBase, buttonVariants.primary, buttonSizes.md, "mt-2")}
               >
-                Contáctame
-              </Button>
+                <Download className="h-4 w-4" aria-hidden="true" />
+                Descargar CV
+              </a>
             </div>
-          </motion.div>
+          </motion.nav>
         )}
       </AnimatePresence>
     </motion.header>

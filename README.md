@@ -9,9 +9,9 @@ Portafolio profesional construido con **Next.js 14 (App Router)**, orientado a m
 | **Framework** | Next.js 14 (App Router, Server + Client Components) |
 | **Lenguaje** | TypeScript (modo estricto) |
 | **Estilos** | TailwindCSS + tokens de diseño personalizados (`tailwind.config.ts`) |
-| **Animaciones** | Framer Motion (stagger, reveal on scroll, layout transitions) |
+| **Animaciones** | Framer Motion (entrada del Hero y reveal on scroll, con soporte de `prefers-reduced-motion`) |
 | **Iconografía** | Lucide React |
-| **Tipografía** | Geist Sans, Inter, JetBrains Mono |
+| **Tipografía** | Instrument Serif, Geist Sans, JetBrains Mono |
 
 ## Estructura del proyecto
 
@@ -19,8 +19,8 @@ Portafolio profesional construido con **Next.js 14 (App Router)**, orientado a m
 Portafolio/
 ├── app/                    # Rutas de Next.js (layout, page, robots, sitemap, globals.css)
 ├── components/
-│   ├── layout/             # Navbar, footer, cursor, loading screen, scroll progress, back-to-top
-│   ├── sections/           # Secciones del portafolio (Hero, About, Skills, Experience...)
+│   ├── layout/             # Navbar, footer, scroll progress, back-to-top, MotionProvider
+│   ├── sections/           # Secciones del portafolio (Hero, Projects, Experience, Skills...)
 │   └── ui/                 # Primitivos reutilizables (Button, Badge, Card, SectionHeading, RevealOnScroll)
 ├── hooks/                  # Lógica reutilizable (scroll progress, sección activa, posición del mouse)
 ├── lib/                    # Utilidades (cn para clases de Tailwind)
@@ -34,10 +34,10 @@ Portafolio/
 
 ## Funcionalidades
 
-- Diseño **responsive** de una sola página (Hero, About, Skills, Experience, Projects, Timeline, Certifications, Education, Services, Contact)
-- **Animaciones** de entrada (stagger), scroll-reveal y micro-interacciones con Framer Motion
-- **Nav pill animada** que resalta la sección activa según scroll
-- **Cursor personalizado**, loading screen y barra de progreso de scroll
+- Diseño **responsive** de una sola página (Hero, Projects, Experience, Skills, About, Formation, Contact)
+- **Animaciones** de entrada y scroll-reveal con Framer Motion, desactivadas con `prefers-reduced-motion`
+- **Navegación** que resalta la sección activa según scroll
+- Barra de progreso de scroll
 - Botón *back-to-top*
 - Contenido desacoplado del componente (`/constants`) para edición rápida
 - SEO básico vía `app/robots` y `app/sitemap`
@@ -47,10 +47,10 @@ Portafolio/
 
 | Elemento | Detalle |
 |----------|---------|
-| **Paleta** | Negro casi puro (`#0A0A0B`) + superficies grises escalonadas (`#131316`, `#18181C`) + acento azul eléctrico (`#2E7DFF`) |
-| **Tipografía** | Geist Sans (títulos), Inter (cuerpo), JetBrains Mono (metadatos: fechas, stacks, estados) |
+| **Paleta** | Derivada del retrato: negro cálido (`#0B0A09`), superficies (`#141210`, `#1B1916`) y acento ámbar (`#E2A65C`) |
+| **Tipografía** | Instrument Serif (títulos), Geist Sans (cuerpo), JetBrains Mono (etiquetas de tecnologías) |
 | **Motion** | Curva `cubic-bezier(0.16, 1, 0.3, 1)` en todas las transiciones para sensación uniforme |
-| **Elemento de firma** | Tratamiento mono para todo dato "de sistema", como puente visual entre el lado producto (tipografía humanista) y el lado infraestructura (tipografía técnica) |
+| **Elemento de firma** | Retrato integrado con el fondo y nombre en serif de gran tamaño |
 
 ## Instalación y ejecución
 
@@ -91,12 +91,13 @@ App disponible en: `http://localhost:3000`
 | Archivo | Qué contiene |
 |---------|--------------|
 | `constants/site.ts` | Nombre, correo, enlaces de GitHub/LinkedIn, URL del CV |
-| `constants/projects.ts` | Proyectos a mostrar (hoy: Tickets-App, Validación de URLs Maliciosas y FinanceOS) |
+| `constants/projects.ts` | Proyectos a mostrar (hoy: Tickets-App, FinanceOS y Malicious URL Checker; el primero se muestra destacado) |
 | `constants/experience.ts` | Experiencia laboral / roles anteriores y futuros |
-| `public/profile.jpg` | Foto del Hero (pendiente de agregar; hoy se muestra un placeholder) |
+| `public/profile.jpg` | Foto del Hero (2048×2560) |
+| `public/profile-og.jpg` | Copia ligera para la imagen de compartir |
 | `public/projects/pdf/` | CV descargable (si cambias el archivo, actualiza `SITE.resumeUrl`) |
-| `public/og-image.png` | Imagen para compartir en redes, 1200×630 (pendiente de agregar; `app/layout.tsx` ya la referencia) |
-| `public/favicon.ico` | Ícono del sitio (pendiente de agregar; `app/layout.tsx` ya lo referencia) |
+| `app/opengraph-image.tsx` | Imagen para compartir en redes, 1200×630, generada con tu foto y nombre |
+| `app/icon.svg` | Ícono del sitio |
 
 ## Fuente Satoshi (opcional)
 

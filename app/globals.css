@@ -12,8 +12,19 @@
   }
 
   body {
-    @apply bg-base font-body text-ink-primary antialiased;
-    font-feature-settings: "cv11", "ss01";
+    @apply bg-canvas font-body text-ink-primary antialiased;
+  }
+
+  /* Instrument Serif solo existe en peso 400: evita negritas sintéticas. */
+  h1,
+  h2,
+  h3 {
+    font-synthesis: none;
+  }
+
+  /* Deja espacio para la barra de navegación al saltar a una sección. */
+  section[id] {
+    scroll-margin-top: 5rem;
   }
 
   ::selection {
@@ -24,17 +35,36 @@
     width: 10px;
   }
   ::-webkit-scrollbar-track {
-    @apply bg-base;
+    @apply bg-canvas;
   }
   ::-webkit-scrollbar-thumb {
-    @apply rounded-full bg-base-surface2;
+    @apply rounded-full bg-canvas-surface2;
   }
   ::-webkit-scrollbar-thumb:hover {
     @apply bg-border-strong;
   }
 
   :focus-visible {
-    @apply outline-none ring-2 ring-accent ring-offset-2 ring-offset-base;
+    @apply outline-none ring-2 ring-accent ring-offset-2 ring-offset-canvas;
+  }
+}
+
+@layer components {
+  /* Funde el retrato con el fondo. El fondo de la foto ya es casi negro. */
+  .portrait-mask {
+    -webkit-mask-image: linear-gradient(to bottom, #000 62%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 62%, transparent 100%);
+  }
+
+  @media (min-width: 1024px) {
+    .portrait-mask {
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 34%),
+        linear-gradient(to bottom, #000 78%, transparent 100%);
+      -webkit-mask-composite: source-in;
+      mask-image: linear-gradient(to right, transparent 0%, #000 34%),
+        linear-gradient(to bottom, #000 78%, transparent 100%);
+      mask-composite: intersect;
+    }
   }
 }
 
@@ -46,17 +76,5 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
-  }
-}
-
-@media (pointer: fine) {
-  body, 
-  a, 
-  button, 
-  select, 
-  input, 
-  textarea, 
-  [role="button"] {
-    cursor: none !important;
   }
 }

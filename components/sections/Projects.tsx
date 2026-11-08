@@ -1,140 +1,164 @@
-"use client";
-
-import { ExternalLink, Github, Plus } from "lucide-react";
+import { ExternalLink, Github } from "lucide-react";
 import Image from "next/image";
 import { PROJECTS } from "@/constants/projects";
+import { ProjectEntry } from "@/types";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
 import { Badge } from "@/components/ui/Badge";
+import { buttonBase, buttonSizes, buttonVariants } from "@/components/ui/Button";
+import { cn } from "@/lib/utils";
 
-const statusColor: Record<string, string> = {
-  "En producción": "text-emerald-400",
-  "En desarrollo": "text-accent-strong",
-  Archivado: "text-ink-tertiary",
-  Próximamente: "text-amber-400",
-};
+function ProjectMeta({ project }: { project: ProjectEntry }) {
+  return (
+    <p className="text-sm text-ink-tertiary">
+      {project.category} · {project.status}
+    </p>
+  );
+}
+
+function ProjectHighlights({ project }: { project: ProjectEntry }) {
+  return (
+    <ul className="space-y-2.5">
+      {project.highlights.map((highlight) => (
+        <li
+          key={highlight}
+          className="flex gap-3 text-sm leading-relaxed text-ink-secondary"
+        >
+          <span
+            aria-hidden="true"
+            className="mt-2 h-1 w-1 shrink-0 rounded-full bg-ink-tertiary"
+          />
+          {highlight}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function ProjectStack({ project }: { project: ProjectEntry }) {
+  return (
+    <ul aria-label={`Tecnologías de ${project.title}`} className="flex flex-wrap gap-2">
+      {project.stack.map((tech) => (
+        <li key={tech}>
+          <Badge>{tech}</Badge>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function ProjectLinks({ project }: { project: ProjectEntry }) {
+  return (
+    <div className="flex flex-wrap gap-3">
+      {project.githubUrl && (
+        <a
+          href={project.githubUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`Ver el código de ${project.title} en GitHub`}
+          className={cn(buttonBase, buttonVariants.secondary, buttonSizes.md)}
+        >
+          <Github className="h-4 w-4" aria-hidden="true" />
+          Ver código
+        </a>
+      )}
+      {project.demoUrl && (
+        <a
+          href={project.demoUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={cn(buttonBase, buttonVariants.ghost, buttonSizes.md)}
+        >
+          <ExternalLink className="h-4 w-4" aria-hidden="true" />
+          {project.demoLabel ?? "Ver demo"}
+        </a>
+      )}
+    </div>
+  );
+}
+
+function ProjectShot({ project, sizes }: { project: ProjectEntry; sizes: string }) {
+  if (!project.image) return null;
+  return (
+    <div className="overflow-hidden rounded-xl border border-border bg-canvas-surface">
+      <Image
+        src={project.image.src}
+        alt={project.image.alt}
+        width={project.image.width}
+        height={project.image.height}
+        sizes={sizes}
+        className="h-auto w-full"
+      />
+    </div>
+  );
+}
+
+function FeaturedProject({ project }: { project: ProjectEntry }) {
+  return (
+    <article>
+      <RevealOnScroll>
+        <ProjectShot project={project} sizes="(min-width: 1152px) 1104px, 100vw" />
+      </RevealOnScroll>
+      <div className="mt-8 grid gap-8 lg:grid-cols-12">
+        <div className="lg:col-span-5">
+          <ProjectMeta project={project} />
+          <h3 className="mt-2 font-display text-display-3 font-normal text-ink-primary">
+            {project.title}
+          </h3>
+          <p className="mt-3 text-base leading-relaxed text-ink-secondary">
+            {project.description}
+          </p>
+          <div className="mt-6">
+            <ProjectLinks project={project} />
+          </div>
+        </div>
+        <div className="space-y-6 lg:col-span-6 lg:col-start-7">
+          <ProjectHighlights project={project} />
+          <ProjectStack project={project} />
+        </div>
+      </div>
+    </article>
+  );
+}
+
+function ProjectRow({ project, flip }: { project: ProjectEntry; flip: boolean }) {
+  return (
+    <article className="grid items-start gap-8 lg:grid-cols-12">
+      <RevealOnScroll className={cn("lg:col-span-7", flip && "lg:order-2")}>
+        <ProjectShot project={project} sizes="(min-width: 1024px) 640px, 100vw" />
+      </RevealOnScroll>
+      <div className={cn("space-y-5 lg:col-span-5", flip && "lg:order-1")}>
+        <div>
+          <ProjectMeta project={project} />
+          <h3 className="mt-2 font-display text-display-3 font-normal text-ink-primary">
+            {project.title}
+          </h3>
+          <p className="mt-3 text-base leading-relaxed text-ink-secondary">
+            {project.description}
+          </p>
+        </div>
+        <ProjectHighlights project={project} />
+        <ProjectStack project={project} />
+        <ProjectLinks project={project} />
+      </div>
+    </article>
+  );
+}
 
 export function Projects() {
-  const isEmpty = PROJECTS.length === 0;
+  const [featured, ...rest] = PROJECTS;
 
   return (
-    <section id="projects" className="relative py-28 md:py-36">
+    <section id="projects" className="relative py-24 md:py-32">
       <div className="mx-auto max-w-6xl px-6">
-        <SectionHeading
-          eyebrow="Proyectos"
-          title="Trabajo seleccionado."
-          description="Cada proyecto incluye su contexto, stack y enlaces. Esta grilla está lista para crecer."
-        />
+        <SectionHeading eyebrow="Proyectos" title="Lo que he construido." />
 
-        {isEmpty ? (
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {[0, 1, 2].map((i) => (
-              <RevealOnScroll key={i} delay={i * 0.08}>
-                <div className="flex h-full min-h-[280px] flex-col items-center justify-center gap-3 rounded-2xl border border-dashed border-border p-8 text-center">
-                  <span className="flex h-10 w-10 items-center justify-center rounded-full border border-border text-ink-tertiary">
-                    <Plus className="h-4 w-4" />
-                  </span>
-                  <p className="text-sm font-medium text-ink-secondary">
-                    Espacio para tu próximo proyecto
-                  </p>
-                  <p className="max-w-[220px] text-xs leading-relaxed text-ink-tertiary">
-                    Agrega título, stack, enlaces y estado en{" "}
-                    <code className="font-mono">constants/projects.ts</code>
-                  </p>
-                </div>
-              </RevealOnScroll>
-            ))}
-          </div>
-        ) : (
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {PROJECTS.map((project, i) => {
-              const targetUrl = project.demoUrl || project.githubUrl;
-              return (
-                <RevealOnScroll key={project.title} delay={i * 0.08}>
-                  <div className="relative group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-base-surface/40 transition-all duration-500 hover:-translate-y-1 hover:border-border-strong hover:bg-base-surface/70">
-                    <div className="relative aspect-video w-full overflow-hidden bg-base-surface2">
-                      {project.image ? (
-                        <Image
-                          src={project.image}
-                          alt={project.title}
-                          fill
-                          className="object-cover transition-transform duration-700 ease-premium group-hover:scale-105"
-                        />
-                      ) : (
-                        <div className="flex h-full items-center justify-center font-mono text-xs uppercase tracking-widest text-ink-tertiary">
-                          Vista previa
-                        </div>
-                      )}
-                    </div>
-
-                    <div className="flex flex-1 flex-col p-6">
-                      <div className="flex items-center justify-between gap-2">
-                        <Badge variant="outline">{project.category}</Badge>
-                        <span
-                          className={`font-mono text-[11px] uppercase tracking-wider ${
-                            statusColor[project.status]
-                          }`}
-                        >
-                          {project.status}
-                        </span>
-                      </div>
-
-                      <h3 className="mt-4 font-display text-lg font-medium text-ink-primary">
-                        {targetUrl ? (
-                          <a
-                            href={targetUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="focus:outline-none"
-                          >
-                            <span className="absolute inset-0" aria-hidden="true" />
-                            {project.title}
-                          </a>
-                        ) : (
-                          project.title
-                        )}
-                      </h3>
-                      <p className="mt-2 flex-1 text-sm leading-relaxed text-ink-secondary">
-                        {project.description}
-                      </p>
-
-                      <div className="mt-4 flex flex-wrap gap-2">
-                        {project.stack.map((tech) => (
-                          <Badge key={tech}>{tech}</Badge>
-                        ))}
-                      </div>
-
-                      <div className="mt-6 flex gap-3 border-t border-border pt-5 relative z-10">
-                        {project.githubUrl && (
-                          <a
-                            href={project.githubUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center gap-1.5 text-sm text-ink-secondary transition-colors hover:text-ink-primary"
-                          >
-                            <Github className="h-4 w-4" />
-                            Código
-                          </a>
-                        )}
-                        {project.demoUrl && (
-                          <a
-                            href={project.demoUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center gap-1.5 text-sm text-ink-secondary transition-colors hover:text-ink-primary"
-                          >
-                            <ExternalLink className="h-4 w-4" />
-                            Demo
-                          </a>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                </RevealOnScroll>
-              );
-            })}
-          </div>
-        )}
+        <div className="space-y-20 md:space-y-28">
+          {featured && <FeaturedProject project={featured} />}
+          {rest.map((project, i) => (
+            <ProjectRow key={project.title} project={project} flip={i % 2 === 1} />
+          ))}
+        </div>
       </div>
     </section>
   );

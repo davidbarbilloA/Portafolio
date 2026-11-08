@@ -9,65 +9,53 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      // Paleta derivada del retrato: negro cálido, beige de la gabardina y ámbar del arete.
+      // El grupo se llama "canvas" y no "base" porque `text-base` chocaría con el tamaño de fuente.
       colors: {
-        base: {
-          DEFAULT: "#0A0A0B", // page background
-          raised: "#101013", // section background
-          surface: "#131316", // card background
-          surface2: "#18181C", // hovered / nested surface
+        canvas: {
+          DEFAULT: "#0B0A09", // fondo de página
+          raised: "#100F0D", // banda de sección
+          surface: "#141210", // superficie
+          surface2: "#1B1916", // superficie anidada o en hover
         },
         border: {
-          DEFAULT: "#232328",
-          strong: "#2E2E34",
+          DEFAULT: "#2A2622",
+          strong: "#3D3731",
         },
         ink: {
-          primary: "#F5F5F7",
-          secondary: "#A1A1AA",
-          tertiary: "#6B6B72",
+          primary: "#F4EFE8",
+          secondary: "#B8B2A9",
+          tertiary: "#8F8A83",
         },
         accent: {
-          DEFAULT: "#2E7DFF",
-          soft: "#2E7DFF1a",
-          strong: "#4E93FF",
-          dim: "#1B4FA6",
+          DEFAULT: "#E2A65C",
+          soft: "#E2A65C1a",
+          strong: "#EDBC7E",
+          dim: "#8A6335",
         },
+        "on-accent": "#0B0A09",
       },
       fontFamily: {
-        display: ["var(--font-geist-sans)", "var(--font-body)", "sans-serif"],
-        body: ["var(--font-body)", "sans-serif"],
+        display: ["var(--font-display)", "Georgia", "serif"],
+        body: ["var(--font-geist-sans)", "system-ui", "sans-serif"],
         mono: ["var(--font-mono)", "monospace"],
       },
       fontSize: {
-        "display-1": ["clamp(2.75rem, 6vw, 5.5rem)", { lineHeight: "1.02", letterSpacing: "-0.03em" }],
-        "display-2": ["clamp(2rem, 4vw, 3.25rem)", { lineHeight: "1.05", letterSpacing: "-0.025em" }],
-        "display-3": ["clamp(1.5rem, 2.4vw, 2rem)", { lineHeight: "1.15", letterSpacing: "-0.02em" }],
-      },
-      backgroundImage: {
-        "grid-fade":
-          "linear-gradient(to bottom, transparent, rgba(10,10,11,1)), linear-gradient(to right, rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.04) 1px, transparent 1px)",
-        "radial-glow":
-          "radial-gradient(circle at 50% 0%, rgba(46,125,255,0.16), transparent 60%)",
-      },
-      backgroundSize: {
-        grid: "100% 100%, 44px 44px, 44px 44px",
+        "display-1": ["clamp(4rem, 9vw, 8.5rem)", { lineHeight: "0.92", letterSpacing: "-0.02em" }],
+        "display-2": ["clamp(2.5rem, 5vw, 4.25rem)", { lineHeight: "1.02", letterSpacing: "-0.015em" }],
+        "display-3": ["clamp(1.75rem, 3vw, 2.5rem)", { lineHeight: "1.1", letterSpacing: "-0.01em" }],
       },
       boxShadow: {
-        glow: "0 0 0 1px rgba(46,125,255,0.25), 0 8px 40px -8px rgba(46,125,255,0.35)",
-        card: "0 1px 0 0 rgba(255,255,255,0.04) inset, 0 20px 40px -20px rgba(0,0,0,0.6)",
+        card: "0 20px 40px -24px rgba(0,0,0,0.7)",
       },
       keyframes: {
-        blink: {
-          "0%, 100%": { opacity: "1" },
-          "50%": { opacity: "0.3" },
-        },
-        marquee: {
-          "0%": { transform: "translateX(0)" },
-          "100%": { transform: "translateX(-50%)" },
+        "hero-in": {
+          from: { opacity: "0", transform: "translateY(16px)" },
+          to: { opacity: "1", transform: "translateY(0)" },
         },
       },
       animation: {
-        blink: "blink 2s ease-in-out infinite",
-        marquee: "marquee 28s linear infinite",
+        "hero-in": "hero-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) both",
       },
       transitionTimingFunction: {
         premium: "cubic-bezier(0.16, 1, 0.3, 1)",

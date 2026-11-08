@@ -1,18 +1,19 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { Instrument_Serif, JetBrains_Mono } from "next/font/google";
 import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 import { SITE } from "@/constants/site";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-import { CustomCursor } from "@/components/layout/CustomCursor";
 import { ScrollProgress } from "@/components/layout/ScrollProgress";
 import { BackToTop } from "@/components/layout/BackToTop";
-import { LoadingScreen } from "@/components/layout/LoadingScreen";
+import { MotionProvider } from "@/components/layout/MotionProvider";
 
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-body",
+const instrumentSerif = Instrument_Serif({
+  subsets: ["latin", "latin-ext"],
+  weight: "400",
+  style: ["normal", "italic"],
+  variable: "--font-display",
   display: "swap",
 });
 
@@ -27,6 +28,8 @@ export const metadata: Metadata = {
   title: `${SITE.name} — ${SITE.shortRole}`,
   description: SITE.description,
   keywords: [
+    "Desarrollador Full Stack",
+    "Full Stack Developer",
     "Frontend Developer",
     "Full Stack Java",
     "React Developer",
@@ -43,27 +46,15 @@ export const metadata: Metadata = {
     title: `${SITE.name} — ${SITE.shortRole}`,
     description: SITE.description,
     siteName: SITE.name,
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: `${SITE.name} — Portafolio`,
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title: `${SITE.name} — ${SITE.shortRole}`,
     description: SITE.description,
-    images: ["/og-image.png"],
   },
   robots: {
     index: true,
     follow: true,
-  },
-  icons: {
-    icon: "/favicon.ico",
   },
 };
 
@@ -73,15 +64,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="es" className={`${GeistSans.variable} ${inter.variable} ${jetbrainsMono.variable}`}>
-      <body className="cursor-aware">
-        <LoadingScreen />
-        <ScrollProgress />
-        <CustomCursor />
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
-        <BackToTop />
+    <html
+      lang="es"
+      className={`${GeistSans.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable}`}
+    >
+      <body>
+        <MotionProvider>
+          <ScrollProgress />
+          <Navbar />
+          <main>{children}</main>
+          <Footer />
+          <BackToTop />
+        </MotionProvider>
       </body>
     </html>
   );
