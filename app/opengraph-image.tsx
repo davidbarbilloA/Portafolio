@@ -40,7 +40,7 @@ export default async function OpengraphImage() {
             Desarrollador Full Stack
           </div>
           <div style={{ marginTop: 6, fontSize: 32, color: "#B8B2A9" }}>
-            React y Java
+            Python · React · TypeScript
           </div>
         </div>
         {/* eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text */}

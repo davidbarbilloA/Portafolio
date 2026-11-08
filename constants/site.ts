@@ -1,12 +1,13 @@
 export const SITE = {
   name: "David Barbillo",
-  // Espacios no separables: "Full Stack" y "React y Java" no se parten en móvil.
-  role: "Desarrollador Full Stack · React y Java",
+  // Espacios no separables: "Full Stack" y "Python (FastAPI)" no se parten en móvil.
+  role: "Desarrollador Full Stack · Python (FastAPI) · React · TypeScript",
   shortRole: "Desarrollador Full Stack",
+  roleStack: "Python (FastAPI) · React · TypeScript",
   tagline:
-    "Construyo interfaces rápidas y mantenibles en React y TypeScript, y amplío ese trabajo hacia el backend con Java y Spring Boot. También administro infraestructura corporativa, así que conozco cómo se opera un sistema en producción.",
+    "Construyo aplicaciones de punta a punta con Python (FastAPI), React y TypeScript. En Julius 2 Grow diseñé y llevé a producción la plataforma interna de identidades, accesos y facturación de licencias.",
   description:
-    "Desarrollador Full Stack con base en React y TypeScript y backend en expansión con Java y Spring Boot, además de experiencia administrando infraestructura y accesos en un entorno corporativo.",
+    "Desarrollador Full Stack con Python (FastAPI), React y TypeScript. Casi 3 años en Julius 2 Grow, donde llevé a producción la plataforma interna de identidades, accesos y facturación de licencias.",
   location: "Medellín, Colombia",
   email: "davidbarbillo120@gmail.com",
   github: "https://github.com/davidbarbilloA",
@@ -15,8 +16,8 @@ export const SITE = {
   resumeUrl: "/projects/pdf/David-Barbillo-CV.pdf",
   availableForWork: true,
   quickFacts: [
-    { label: "Experiencia", value: "+2 años" },
-    { label: "Stack principal", value: "React · TypeScript" },
-    { label: "En expansión", value: "Java · Spring Boot" },
+    { label: "Experiencia", value: "Casi 3 años" },
+    { label: "Stack principal", value: "FastAPI · React · TypeScript" },
+    { label: "También", value: "Java · Spring Boot" },
   ],
 } as const;

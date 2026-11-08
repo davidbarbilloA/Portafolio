@@ -4,6 +4,40 @@ import { ProjectEntry } from "@/types";
 // Los datos salen de los README de cada repositorio: no agregues métricas que no puedas sustentar.
 export const PROJECTS: ProjectEntry[] = [
   {
+    // Datos tomados del CV. Sin detalles de integraciones internas: el proyecto es privado.
+    title: "Plataforma de identidades y accesos",
+    category: "Proyecto interno",
+    status: "En producción",
+    description:
+      "Plataforma interna de Julius 2 Grow para gestionar identidades, accesos y facturación de licencias. La diseñé, la desarrollé y la llevé a producción.",
+    facts: [
+      { value: "370+", label: "licencias controladas" },
+      { value: "30", label: "áreas" },
+      { value: "20", label: "centros de costo" },
+      { value: "84", label: "pruebas automatizadas" },
+    ],
+    highlights: [
+      "Cruza las licencias contra el personal activo y detecta las que siguen asignadas a personas retiradas.",
+      "Reparte el costo mensual de Jira, Planner y Tempo entre áreas y centros de costo.",
+      "Inicio de sesión con Google restringido al dominio corporativo, sesión en cookie firmada HttpOnly y 3 roles validados en el backend en cada petición.",
+      "Sincroniza altas y bajas de personal con Gestión Humana y Mesa de Ayuda.",
+      "Pruebas con pytest y despliegue con Docker Compose (MySQL, API y nginx).",
+    ],
+    stack: [
+      "FastAPI",
+      "Python",
+      "React",
+      "TypeScript",
+      "MySQL",
+      "OAuth con Google",
+      "pytest",
+      "Docker",
+      "nginx",
+    ],
+    privateNote:
+      "Sistema interno de la empresa: el código y las pantallas no son públicos.",
+  },
+  {
     title: "Tickets-App",
     category: "Full Stack",
     status: "En desarrollo",

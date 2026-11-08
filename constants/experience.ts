@@ -1,36 +1,39 @@
 import { ExperienceEntry } from "@/types";
 
+// Cargos, fechas y cifras tomados del CV: mantenlos iguales en ambos.
 export const EXPERIENCE: ExperienceEntry[] = [
   {
-    company: "Julius2grow — ARKIX SAS",
-    role: "IT Systems Administrator",
-    period: "2024 — Presente",
-    location: "Medellín, Colombia (presencial)",
+    company: "Julius 2 Grow",
+    role: "Auxiliar de Sistemas",
+    period: "Enero 2024 — Presente",
+    location: "Medellín, Colombia",
     current: true,
     description:
-      "Administro la infraestructura tecnológica de la empresa: redes, servidores, accesos, licencias, inventario y soporte técnico.",
+      "Responsable de licenciamiento de software (Jira, Adobe), administración de plataformas y desarrollo interno.",
     highlights: [
-      "Diseño y desarrollo interfaces frontend para herramientas internas, con componentización y control de versiones.",
-      "Lidero la consolidación de riesgos 2026: una matriz unificada que agrega y correlaciona riesgos de ocho áreas internas, con seguimiento de controles.",
-      "Administro Google Workspace de forma integral: gobernanza de accesos, licencias y automatización de altas y bajas de usuarios.",
-      "Diagnostico y optimizo la red UniFi (switches PoE y access points), resolviendo problemas como la interferencia de canal en 2.4 GHz.",
-      "Produzco documentación técnica y presentaciones para directivos, y traduzco decisiones de infraestructura en información accionable.",
+      "Diseñé y desarrollé la plataforma interna de identidades, accesos y facturación de licencias, que controla más de 370 licencias.",
+      "Automaticé con IA (Claude) la generación del informe de incidentes de ciberseguridad a partir de exportes de Jira, con una plantilla corporativa estandarizada.",
+      "Desarrollé la intranet de la empresa, que centraliza todos los formatos administrativos en un solo lugar.",
+      "Administro Google Workspace (200 licencias), Jira (122) y Adobe (50), incluyendo altas, bajas, accesos y permisos.",
+      "Doy soporte técnico a 170 usuarios (unos 30 tickets al mes) y controlo el inventario de 400 equipos de TI.",
+      "Asumí el liderazgo del área de sistemas durante 2 meses, asegurando la continuidad de los servicios, y documenté sus procesos con buenas prácticas de ITIL y COBIT.",
     ],
     stack: [
+      "FastAPI",
+      "React",
+      "TypeScript",
+      "MySQL",
+      "Docker",
       "Google Workspace",
-      "Redes UniFi",
-      "Administración de servidores",
-      "VPN",
-      "Matriz de riesgos",
-      "Inventario de equipos",
-      "Soporte técnico",
+      "Jira",
+      "Adobe",
     ],
   },
   {
-    company: "Julius2grow",
-    role: "Aprendiz",
-    period: "2023",
+    company: "Julius 2 Grow",
+    role: "Aprendiz de Sistemas",
+    period: "Febrero 2023 — Agosto 2023",
     description:
-      "Primer rol en tecnología: administración de sistemas internos, soporte técnico, licencias, inventario, redes UniFi, VPN y mantenimiento preventivo y correctivo.",
+      "Soporte técnico, mantenimiento de equipos, administración y consulta de bases de datos, documentación de procesos y apoyo en proyectos de desarrollo y pruebas de software.",
   },
 ];

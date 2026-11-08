@@ -35,8 +35,9 @@ export function Hero() {
           <em>Barbillo</em>
         </h1>
 
-        <p className="mt-6 text-balance text-lg font-medium text-ink-primary md:text-xl">
-          {SITE.role}
+        <p className="mt-6 text-lg font-medium text-ink-primary md:text-xl">
+          <span className="block">{SITE.shortRole}</span>
+          <span className="block">{SITE.roleStack}</span>
         </p>
 
         <p className="mt-4 max-w-lg text-base leading-relaxed text-ink-secondary">

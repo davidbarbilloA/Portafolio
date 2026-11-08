@@ -30,10 +30,10 @@ export const metadata: Metadata = {
   keywords: [
     "Desarrollador Full Stack",
     "Full Stack Developer",
-    "Frontend Developer",
-    "Full Stack Java",
+    "Python Developer",
+    "FastAPI",
     "React Developer",
-    "Spring Boot",
+    "Gestión de identidades y accesos",
     "TypeScript",
     "Portafolio David Barbillo",
   ],

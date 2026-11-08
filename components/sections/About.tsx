@@ -12,15 +12,15 @@ export function About() {
 
           <div className="mt-10 grid gap-6 text-base leading-relaxed text-ink-secondary md:grid-cols-2 md:gap-10">
             <p>
-              Construyo interfaces en React y TypeScript con estándares de
-              producción, y estoy extendiendo esa base hacia el backend con Java
-              y Spring Boot para moverme con soltura en todo el stack.
+              Desarrollo con Python (FastAPI), React y TypeScript, y uso IA
+              (Claude Code, Codex) para acelerar el desarrollo, con revisión y
+              pruebas del código.
             </p>
             <p>
-              Administro redes, accesos, activos e identidad corporativa, así
-              que entiendo cómo se opera un sistema después de construirlo. Busco
-              un equipo de ingeniería donde seguir creciendo como desarrollador Full Stack y
-              aportar ese criterio.
+              También administro plataformas, seguridad y soporte para 170
+              usuarios, así que entiendo cómo se opera un sistema después de
+              construirlo. Busco un equipo de ingeniería donde seguir creciendo
+              como desarrollador Full Stack y aportar ese criterio.
             </p>
           </div>
         </div>

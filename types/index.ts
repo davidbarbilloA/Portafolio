@@ -31,7 +31,11 @@ export interface ProjectEntry {
   githubUrl?: string;
   demoUrl?: string;
   demoLabel?: string;
-  status: "En producción" | "En desarrollo" | "Archivado" | "Próximamente";
+  /** Proyecto sin código ni pantallas públicas: este aviso sustituye a los enlaces. */
+  privateNote?: string;
+  /** Cifras reales que ocupan el lugar de la captura cuando no se puede mostrar. */
+  facts?: { value: string; label: string }[];
+  status:"En producción" | "En desarrollo" | "Archivado" | "Próximamente";
   category: string;
 }
 

@@ -1,4 +1,4 @@
-import { ExternalLink, Github } from "lucide-react";
+import { ExternalLink, Github, Lock } from "lucide-react";
 import Image from "next/image";
 import { PROJECTS } from "@/constants/projects";
 import { ProjectEntry } from "@/types";
@@ -47,7 +47,30 @@ function ProjectStack({ project }: { project: ProjectEntry }) {
   );
 }
 
+function ProjectFacts({ project }: { project: ProjectEntry }) {
+  if (!project.facts) return null;
+  return (
+    <dl className="grid grid-cols-2 gap-x-8 gap-y-6 border-y border-border py-8 md:grid-cols-4">
+      {project.facts.map((fact) => (
+        <div key={fact.label} className="flex flex-col-reverse justify-end gap-1">
+          <dt className="text-sm text-ink-tertiary">{fact.label}</dt>
+          <dd className="font-display text-display-2 text-ink-primary">{fact.value}</dd>
+        </div>
+      ))}
+    </dl>
+  );
+}
+
 function ProjectLinks({ project }: { project: ProjectEntry }) {
+  if (project.privateNote) {
+    return (
+      <p className="flex gap-2 text-sm leading-relaxed text-ink-tertiary">
+        <Lock className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
+        {project.privateNote}
+      </p>
+    );
+  }
+
   return (
     <div className="flex flex-wrap gap-3">
       {project.githubUrl && (
@@ -98,6 +121,7 @@ function FeaturedProject({ project }: { project: ProjectEntry }) {
     <article>
       <RevealOnScroll>
         <ProjectShot project={project} sizes="(min-width: 1152px) 1104px, 100vw" />
+        <ProjectFacts project={project} />
       </RevealOnScroll>
       <div className="mt-8 grid gap-8 lg:grid-cols-12">
         <div className="lg:col-span-5">
